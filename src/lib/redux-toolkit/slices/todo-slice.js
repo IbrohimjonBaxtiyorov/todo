@@ -7,7 +7,8 @@ const initialState = {
   filter: {
     priority: "",
   },
-  user:null
+  user: JSON.parse(localStorage.getItem("user")),
+  token:JSON.parse(localStorage.getItem("token"))
 };
 
 export const todoSlice = createSlice({
@@ -26,12 +27,18 @@ export const todoSlice = createSlice({
     setFilter(state, { payload }) {
       state.filter = payload;
     },
-    setUser(state ,{payload}){
-      
+    setUser(state, { payload }) {
+      state.user = payload;
+      localStorage.setItem("user", JSON.stringify(payload));
+    },
+    setToken(state,{payload}){
+      state.token=payload
+      localStorage.setItem("token",JSON.stringify(payload))
     }
   },
 });
 
-export const { setData, setLoading, setFilter, addData } = todoSlice.actions;
+export const { setData, setLoading, setFilter, addData, setUser,setToken } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;

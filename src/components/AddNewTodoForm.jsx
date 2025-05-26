@@ -15,14 +15,14 @@ import { validation } from "../lib/utils";
 import { toast } from "sonner";
 import { addTodo } from "../request";
 import { addData } from "../lib/redux-toolkit/slices/todo-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAddModal } from "../lib/redux-toolkit/slices/modal-slice";
 
 export default function AddNewTodoForm() {
   const dispatch = useDispatch();
   const [addLoading, setAddLoading] = useState(false);
   const [sending, setSending] = useState(null);
-
+  const {token}=useSelector((state)=>state.todo)
   function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -49,7 +49,7 @@ export default function AddNewTodoForm() {
   useEffect(() => {
     if (sending) {
       setAddLoading(true);
-      addTodo(sending)
+      addTodo(sending,token)
         .then(
           (res) => {
             dispatch(addData(res));

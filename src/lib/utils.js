@@ -12,3 +12,20 @@ export function validation(obj) {
 
   return false;
 }
+
+export function authValidation(obj) {
+  
+  if (obj.username.trim().length === 0) {    
+    return {
+      target: "username",
+      message: "Usernamegizni kiriting",
+    };
+  }
+   if (obj.password.trim().length === 0) {
+    return {
+      target: "password",
+      message: "Passwordingizni kiriting",
+    };
+  }
+  return false;
+}

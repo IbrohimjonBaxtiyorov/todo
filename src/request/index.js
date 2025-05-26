@@ -26,11 +26,12 @@ export async function getTodos(filter) {
   }
 }
 
-export async function addTodo(todo) {
+export async function addTodo(todo, token) {
   const req = await fetch(baseURL + "/todos", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(todo),
   });
@@ -43,13 +44,32 @@ export async function addTodo(todo) {
   }
 }
 
-export async function deleteTodo(id) {
+export async function deleteTodo(id, token) {
   const req = await fetch(baseURL + "/todos/" + id, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   if (req.status === 200) {
     return id;
   } else {
     throw new Error("Abdulloh xato qildi");
+  }
+}
+
+export async function login(userData) {
+  const req = await fetch(baseURL + "/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+  if (req.ok) {
+    const res = await req.json();
+    return res;
+  } else {
+    throw new Error("hatolik bo'ldi");
   }
 }

@@ -8,27 +8,12 @@ import {
 import { setFilter } from "../lib/redux-toolkit/slices/todo-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "./ui/button";
-import { Link, PlusCircle } from "lucide-react";
-import {
-  setAddModal,
-  setLoginModal,
-} from "../lib/redux-toolkit/slices/modal-slice";
-import Login from "./Login";
+import { PlusCircle } from "lucide-react";
 
-export default function Header() {
+export default function Header({ handleClick }) {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.todo);
-
   function handleFilter(priority) {
     dispatch(setFilter({ priority }));
-  }
-
-  function handleClick() {
-    if (user) {
-      dispatch(setAddModal());
-    } else {
-      
-    }
   }
 
   return (
