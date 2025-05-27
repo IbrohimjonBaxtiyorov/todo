@@ -27,7 +27,7 @@ export default function Login() {
           (res) => {
             dispatch(setUser(res));
             dispatch(setToken(res.access_token));
-            console.log(res.access_token);
+            toast.success("Malumotingiz Muvafaqqiyatli Saqlandi✅");
             navigate("/");
           },
           ({ message }) => {

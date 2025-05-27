@@ -8,7 +8,8 @@ const initialState = {
     priority: "",
   },
   user: JSON.parse(localStorage.getItem("user")),
-  token:JSON.parse(localStorage.getItem("token"))
+  token: JSON.parse(localStorage.getItem("token")),
+  diagnosticData: [],
 };
 
 export const todoSlice = createSlice({
@@ -31,14 +32,35 @@ export const todoSlice = createSlice({
       state.user = payload;
       localStorage.setItem("user", JSON.stringify(payload));
     },
-    setToken(state,{payload}){
-      state.token=payload
-      localStorage.setItem("token",JSON.stringify(payload))
-    }
+    setToken(state, { payload }) {
+      state.token = payload;
+      localStorage.setItem("token", JSON.stringify(payload));
+    },
+    setDiagnostic(state, { payload }) {
+      state.diagnosticData = payload;
+    },
+    setLogOut(state, { payload }) {
+      (state.user = payload),
+        (state.token = payload),
+        localStorage.removeItem("user"),
+        localStorage.removeItem("token");
+    },
+    setDeletetodo(state, { payload }) {
+      state.data = state.data.filter((todo) => todo.id !== payload);
+    },
   },
 });
 
-export const { setData, setLoading, setFilter, addData, setUser,setToken } =
-  todoSlice.actions;
+export const {
+  setData,
+  setLoading,
+  setFilter,
+  addData,
+  setUser,
+  setToken,
+  setDiagnostic,
+  setLogOut,
+  setDeletetodo,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

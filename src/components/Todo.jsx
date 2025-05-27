@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -16,10 +15,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useState } from "react";
+import { deleteTodo } from "../request";
+import { useDispatch, useSelector } from "react-redux";
+import { setDeletetodo } from "../lib/redux-toolkit/slices/todo-slice";
+import { toast } from "sonner";
 
 export default function Todo({
   priority = "secondary",
-  title = "Abdullohning qochishi",
+  title = "",
   completed = false,
   id = 1,
 }) {
@@ -30,12 +33,29 @@ export default function Todo({
     low: "secondary",
   };
 
-  function handleDelete(deleteId) {}
+  const { token } = useSelector((state) => state.todo);
+  const dispatch = useDispatch();
+  function handleDelete(deleteId) {
+    setDelLoading(true);
+    deleteTodo(deleteId, token)
+      .then(
+        (res) => {
+          dispatch(setDeletetodo(res));
+          toast.success("TO-DO muvaffaqiyatli o'chirildi ✅");
+        },
+        ({ message }) => {
+          toast.info("Hali Login Qilmagansiz");
+          toast.error(message);
+        }
+      )
+      .finally(() => {
+        setDelLoading(false);
+      });
+  }
   return (
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>Card Description</CardDescription>
       </CardHeader>
       <CardContent className="flex items-center gap-5">
         <span>

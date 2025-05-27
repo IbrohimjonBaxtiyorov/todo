@@ -22,7 +22,7 @@ export async function getTodos(filter) {
     const result = await req.json();
     return result.data;
   } else {
-    throw new Error("Abdulloh xato qildi");
+    throw new Error("Hatolik bo'ldi");
   }
 }
 
@@ -40,7 +40,17 @@ export async function addTodo(todo, token) {
     const result = await req.json();
     return result;
   } else {
-    throw new Error("Abdulloh xato qildi");
+    throw new Error("Hatolik bo'ldi");
+  }
+}
+
+export async function diagnosticTodo() {
+  const req = await fetch(baseURL + "/todos");
+  if (req.status === 200) {
+    const result = await req.json();
+    return result.data;
+  } else {
+    throw new Error("Hatolik bo'ldi");
   }
 }
 
@@ -54,7 +64,7 @@ export async function deleteTodo(id, token) {
   if (req.status === 200) {
     return id;
   } else {
-    throw new Error("Abdulloh xato qildi");
+    throw new Error("Hatolik bo'ldi");
   }
 }
 

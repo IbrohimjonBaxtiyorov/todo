@@ -11,13 +11,9 @@ export const modalSlice = createSlice({
     setAddModal(state) {
       state.addModal = !state.addModal;
     },
-    setLoginModal(state){
-console.log(state);
-      
-    }
   },
 });
 
-export const { setAddModal ,setLoginModal} = modalSlice.actions;
+export const { setAddModal} = modalSlice.actions;
 
 export default modalSlice.reducer;
